@@ -6,24 +6,26 @@ import { loginUser } from "../redux/authSlice";
 
 
 function Login() {
-  const [data,setData]=useState({email:"",password:""});
-  const user = useSelector((state) => state.login.user);
-  const email = useSelector((state) => state.login.user);
-  const password = useSelector((state) => state.login.user);
-  const dispatch= useDispatch;
-  const navigate = useNavigate;
+  const [data, setData] = useState({ email: "", password: "" });
+  const user = useSelector((state) => state.auth.user);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser(data));
   };
-    useEffect(() => {
-      if (email==="email"&& password==="password") {
-        navigate("/profile");
-      }
-    }, [user.email,user.password, navigate]);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/profile");
+    }
+  }, [user, navigate]);
   
   return (
     <Container className="mt-5">
